@@ -32,7 +32,7 @@ class FixStars:
             self.data[i][FixStars.NOMNAME] = nam
             self.data[i][FixStars.LON] = dat[0]
             self.data[i][FixStars.LAT] = dat[1]
-            ra, decl, dist = swisseph.cotrans(dat[0], dat[1], 1.0, -obl)
+            ra, decl, dist = swisseph.cotrans((dat[0], dat[1], 1.0), -obl)
             self.data[i][FixStars.RA] = ra
             self.data[i][FixStars.DECL] = decl
 

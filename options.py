@@ -192,7 +192,7 @@ class Options:
         self.def_arabicparts = self.arabicparts = None
 
         #Ayanamsha
-        self.def_ayanamsha = self.ayanamsha = 0
+        self.def_ayanamsha = self.ayanamsha = 1
 
         #Colors
         self.def_clrframe = self.clrframe = (0,0,255)

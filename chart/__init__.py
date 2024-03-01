@@ -205,7 +205,7 @@ class Chart:
             self.ayanamsha)
 
         self.raequasc, declequasc, dist = swisseph.cotrans(
-            self.houses.ascmc[houses.Houses.EQUASC], 0.0, 1.0, -self.obl[0])
+            (self.houses.ascmc[houses.Houses.EQUASC], 0.0, 1.0), -self.obl[0])
         self.planets = planets.Planets(
             self.time.jd,
             self.options.meannode,

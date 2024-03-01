@@ -27,8 +27,11 @@ class PlanetaryHours:
 
         #lon, lat, height, atmpress, celsius
         #in GMT, searches after jd!
-        ret, risetime = swisseph.rise_trans(jd, astrology.SE_SUN, lon, lat, float(altitude), 0.0, 10.0, astrology.SE_CALC_RISE, astrology.SEFLG_SWIEPH)
-        ret, settime = swisseph.rise_trans(jd, astrology.SE_SUN, lon, lat, float(altitude), 0.0, 10.0, astrology.SE_CALC_SET, astrology.SEFLG_SWIEPH)
+        ret, risetime = swisseph.rise_trans(jd, astrology.SE_SUN, geopos = [lon, lat, float(altitude)] ,
+                                            atpress = 0.0, attemp = 10.0, rsmi = astrology.SE_CALC_RISE, flags = astrology.SEFLG_SWIEPH)
+        ret, settime = swisseph.rise_trans(jd, astrology.SE_SUN, geopos = [lon, lat, float(altitude)], 
+                                           atpress = 0.0, attemp = 10.0, rsmi = astrology.SE_CALC_SET, 
+                                           flags = astrology.SEFLG_SWIEPH)
 
         #swe_rise_trans calculates only forward!!
         offs = lon*4.0/1440.0
@@ -39,7 +42,9 @@ class PlanetaryHours:
             self.daytime = True
 #           print 'daytime'#
             # Args: float jd_start, int or str body, float lon, float lat, float alt=0.0, float press=0.0, float temp=0.0, int rsmi=0, int flag=FLG_SWIEPH
-            ret, result = swisseph.rise_trans(jd-1.0, astrology.SE_SUN, lon, lat, float(altitude), 0.0, 10.0, astrology.SE_CALC_RISE, astrology.SEFLG_SWIEPH)
+            ret, result = swisseph.rise_trans(jd-1.0, astrology.SE_SUN, geopos = [lon, lat, float(altitude)], 
+                                              atpress = 0.0, attemp = 10.0, 
+                                              rsmi = astrology.SE_CALC_RISE, flags = astrology.SEFLG_SWIEPH)
 
             #From GMT to Local
             self.risetime = result[0] + offs
@@ -55,7 +60,9 @@ class PlanetaryHours:
             self.daytime = False
 #           print 'nightime'#
 #           self.logCalc(risetime)#
-            ret, result = swisseph.rise_trans(jd-1.0, astrology.SE_SUN, lon, lat, float(altitude), 0.0, 10.0, astrology.SE_CALC_SET, astrology.SEFLG_SWIEPH)
+            ret, result = swisseph.rise_trans(jd-1.0, astrology.SE_SUN, geopos =  [lon, lat, float(altitude)],
+                                              atpress = 0.0, attemp = 10.0, rsmi = astrology.SE_CALC_RISE,
+                                              flags = astrology.SEFLG_SWIEPH)
 #           self.logCalc(settime)#
 
             self.risetime = risetime[0] + offs

@@ -10,7 +10,7 @@ class Houses:
     """Calculates the cusps of the Houses"""
 
     HOUSE_NUM = 12
-    hsystems = ('P', 'K', 'R', 'C', 'E', 'W', 'X', 'M', 'H', 'T', 'B', 'O')
+    hsystems = ('P', 'K', 'R', 'C', 'E', 'W', 'X', 'M', 'H', 'T', 'B', 'O', 'S')
 
     ASC, MC, ARMC, VERTEX, EQUASC, COASC, COASC2, POLARASC = range(0, 8)
 
@@ -23,7 +23,7 @@ class Houses:
         if hsys in Houses.hsystems:
             self.hsys = hsys
         else:
-            self.hsys = hsystems[0]
+            self.hsys = self.hsystems[0]
 
         self.obl = obl
         self.cusps, self.ascmc = swisseph.houses_ex(tjd_ut, geolat, geolon, bytes(self.hsys, 'utf-8'), flag)
@@ -42,8 +42,8 @@ class Houses:
             self.cusps = tuple(cusps)
         ##################
 
-        ascra, ascdecl, dist = swisseph.cotrans(self.ascmc[Houses.ASC], 0.0, 1.0, -obl)
-        mcra, mcdecl, dist = swisseph.cotrans(self.ascmc[Houses.MC], 0.0, 1.0, -obl)
+        ascra, ascdecl, dist = swisseph.cotrans((self.ascmc[Houses.ASC], 0.0, 1.0), -obl)
+        mcra, mcdecl, dist = swisseph.cotrans((self.ascmc[Houses.MC], 0.0, 1.0), -obl)
         self.ascmc2 = ((self.ascmc[Houses.ASC], 0.0, ascra, ascdecl), (self.ascmc[Houses.MC], 0.0, mcra, mcdecl))
 
         #zdAsc=90.0, zdMC=0.0
@@ -54,7 +54,7 @@ class Houses:
 
         self.cuspstmp = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
         for i in range(Houses.HOUSE_NUM):
-            self.cuspstmp[i][0], self.cuspstmp[i][1], dist = swisseph.cotrans(self.cusps[i], 0.0, dist, -obl)
+            self.cuspstmp[i][0], self.cuspstmp[i][1], dist = swisseph.cotrans((self.cusps[i], 0.0, dist), -obl)
 
         self.cusps2 = ((self.cuspstmp[0][0], self.cuspstmp[0][1]), (self.cuspstmp[1][0], self.cuspstmp[1][1]), (self.cuspstmp[2][0], self.cuspstmp[2][1]), (self.cuspstmp[3][0], self.cuspstmp[3][1]), (self.cuspstmp[4][0], self.cuspstmp[4][1]), (self.cuspstmp[5][0], self.cuspstmp[5][1]), (self.cuspstmp[6][0], self.cuspstmp[6][1]), (self.cuspstmp[7][0], self.cuspstmp[7][1]), (self.cuspstmp[8][0], self.cuspstmp[8][1]), (self.cuspstmp[9][0], self.cuspstmp[9][1]), (self.cuspstmp[10][0], self.cuspstmp[10][1]), (self.cuspstmp[11][0], self.cuspstmp[11][1]))
 

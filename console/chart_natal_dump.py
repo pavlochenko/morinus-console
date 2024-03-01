@@ -5,7 +5,7 @@ GCHART_DESTINATION_PATH = '/tmp'
 import sys
 from os import path
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-sys.path.append('/usr/local/lib/python3.7/site-packages')
+sys.path.append('/usr/local/lib/python3.11/site-packages')
 
 import os
 import swisseph
@@ -22,11 +22,11 @@ import sys
 import time
 import transits
 import util
-from inspect import getmembers
-from pprint import pprint
-from sys import exit
+# from inspect import getmembers
+# import pprint
+# from sys import exit
 
-swisseph.set_ephe_path('../SWEP/Ephem')
+swisseph.set_ephe_path('F:/fintwit/ephe')
 
 def printPlanetsData(chrt):
     out = []
@@ -51,7 +51,7 @@ def printPlanetsData(chrt):
 
 opts = options.Options()
 mtexts.setLang(opts.langid)
-opts.def_hsys = opts.hsys = 'B'
+opts.def_hsys = opts.hsys = 'S'
 
 # Headers
 print("Name\tDate\t" \
